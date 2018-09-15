@@ -23,11 +23,12 @@ class GitHubFetcher extends Fetcher {
 
     options.fetchOptions = fetchOptions
 
-    this._linesPromise = fetch(`https://api.github.com/users/${username}/repos?sort=pushed`, options)
+    this._linesPromise = fetch(`https://api.github.com/users/${username}/repos?sort=pushed`, fetchOptions)
     .then((response) => {
       return response.json()
     })
     .then((repos) => {
+      console.log(repos)
       return getLinesFromRepos(repos, options)
     }) 
     .catch((err) => {
@@ -98,7 +99,7 @@ function getLinesFromRepo(repo, options) {
 
       if (options.fileTypes.indexOf(fileType) !== -1 && file.patch) {
         for (const line of file.patch.split('\n')) {
-          if (line.startsWith('+')) {
+          if (line.length >= 20 && line.startsWith('+')) {
             // skip the '+'
             lines.push(line.slice(1).trim())
 

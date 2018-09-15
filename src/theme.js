@@ -1,8 +1,10 @@
 export const defaultTheme = {
   numColumns: 40,
   fontFamily: 'Courier New',
-  fontSize: 16,
-  fontWeight: 'normal',
+  fontSize: 60,
+  fontWeight: 'bold',
+  fontColor: '#40C219',
+  backgroundColor: 'black',
 }
 
 export function validateTheme(theme) {

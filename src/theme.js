@@ -1,9 +1,9 @@
 export const defaultTheme = {
   numColumns: 40,
   fontFamily: 'Courier New',
-  fontSize: 60,
+  fontSize: 40,
   fontWeight: 'bold',
-  fontColor: '#40C219',
+  fontColor: '#49C071',
   backgroundColor: 'black',
 }
 

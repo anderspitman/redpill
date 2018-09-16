@@ -76,6 +76,10 @@ function getLinesFromRepos(repos, options) {
 function getLinesFromRepo(repo, options) {
   const commitsUrl = repo.url + '/commits'
 
+  if (!options.excludeFileTypes) {
+    options.excludeFileTypes = []
+  }
+
   return fetch(commitsUrl, options.fetchOptions)
   .then((response) => {
     return response.json()
@@ -97,7 +101,7 @@ function getLinesFromRepo(repo, options) {
       const filenameParts = file.filename.split('.')
       const fileType = filenameParts[filenameParts.length - 1]
 
-      if (options.fileTypes.indexOf(fileType) !== -1 && file.patch) {
+      if (file.patch && options.excludeFileTypes.indexOf(fileType) === -1) {
         for (const line of file.patch.split('\n')) {
           if (line.length >= 20 && line.startsWith('+')) {
             // skip the '+'

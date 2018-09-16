@@ -20,7 +20,7 @@ export class Rainer {
       githubUsername,
       githubPassword,
       fileTypes,
-      numLines: 10,
+      numLines: 100,
     }
 
 
@@ -37,18 +37,6 @@ export class Rainer {
           allChars.push(ch)
         }
       }
-      console.log(allChars)
-
-      //const svg = document.createElementNS(xmlns, 'svg')
-      //svg.setAttribute('width', dim.width + 'px')
-      //svg.setAttribute('height', dim.height + 'px')
-      //el.appendChild(svg)
-
-      //const background = document.createElementNS(xmlns, 'rect')
-      //background.setAttribute('width', dim.width)
-      //background.setAttribute('height', dim.height)
-      //background.setAttribute('fill', theme.backgroundColor)
-      //svg.appendChild(background)
 
       const canvas = document.createElement('canvas')
       canvas.setAttribute('width', dim.width)
@@ -56,7 +44,7 @@ export class Rainer {
       el.appendChild(canvas)
       const ctx = canvas.getContext('2d')
 
-      const columnWidth = theme.fontSize * .7
+      const columnWidth = theme.fontSize * .6
       const numColumns = dim.width / columnWidth
 
       this._el = el
@@ -120,63 +108,18 @@ export class Rainer {
 
     update()
   }
-
-  //animate() {
-  //  for (let col = 0; col < this._numColumns; col++) {
-  //  //for (let col = 0; col < 1; col++) {
-  //    this._animateColumn(col)
-  //  }
-  //}
-
-  //_animateColumn(columnIndex) {
-  //  const text = this._getRandomLineText()
-  //  const line = this._createLine(text)
-  //  this._svg.appendChild(line)
-
-  //  const x = columnIndex * this._columnWidth
-  //  let y = 0
-
-  //  setInterval(() => {
-  //    y += 10
-  //    requestAnimationFrame(() => { line.setAttribute('transform', translate(x, y) )})
-  //  }, 100)
-  //}
-
-  //_getRandomLineText() {
-  //  const numLines = this._lines.length
-  //  const index = Math.floor(Math.random() * numLines)
-  //  return this._lines[index]
-  //}
-
-  //_createLine(text) {
-  //  const g = document.createElementNS(xmlns, 'g')
-  //  g.setAttribute('transform', translate(0, 0))
-
-  //  for (let i = 0; i < text.length; i++) {
-  //    const char = text[i]
-  //    const ch = document.createElementNS(xmlns, 'text')
-  //    ch.textContent = char
-  //    ch.setAttribute('fill', this._theme.fontColor)
-  //    ch.setAttribute('font-family', this._theme.fontFamily)
-  //    ch.setAttribute('font-size', this._theme.fontSize)
-  //    ch.setAttribute('font-weight', this._theme.fontWeight)
-  //    ch.setAttribute('transform', translate(0, i*this._theme.fontSize*.7))
-  //    g.appendChild(ch)
-  //  }
-
-  //  return g
-  //}
 }
 
 class RenderColumn {
   constructor({ index, canvasCtx, lines, chars, theme, columnWidth, height }) {
 
-    this._startTime = timeNowSeconds() + Math.random() * 10
+    this._startDelay = timeNowSeconds() + Math.random() * 10
 
-    this._fallRate = 8 + (Math.random() * 2)
-    const changesPerSecond = 15
+    const changesPerSecond = 20
     this._changeRate = 1 / changesPerSecond
     this._timeLastChange = 0
+
+    this._durationSeconds = 5 + Math.random() * 15;
 
     this._height = height
     this._lines = lines
@@ -189,38 +132,47 @@ class RenderColumn {
 
   update(timeNow, elapsed) {
 
-    if (timeNow < this._startTime) {
+    if (timeNow < this._startDelay) {
       return
     }
 
     if (timeNow - this._timeLastChange > this._changeRate) {
-      this._timeLastChange = timeNow
-      this._text = this._text.slice(0, this._text.length - 1) + this._getRandomChar()
+      this._timeLastChange = timeNow;
+      this._renderStopIndex++;
+      if (this._renderStopIndex > this._text.length) {
+        this._renderStopIndex = this._text.length
+      }
+
+      const renderLength = this._renderStopIndex - this._renderStartIndex;
+      if (renderLength > this._renderLength) {
+        this._renderStartIndex++;
+      }
     }
 
-    for (let i = 0; i < this._text.length; i++) {
+    for (let i = this._renderStartIndex; i < this._renderStopIndex; i++) {
       const char = this._text[i]
       const y = this._y + (i * this._theme.fontSize * .8)
       this._ctx.fillText(char, this._x, y)
-      //console.log("here")
     }
 
-    this._y += this._fallRate
-
-    if (this._y > this._height) {
+    if (timeNow - this._startTime > this._durationSeconds) {
       this.restart()
     }
   }
 
   restart() {
     this._text = this._getRandomLineText()
-    this._y = -1500
+    this._y = 0
+    this._renderStartIndex = 0
+    this._renderStopIndex = 0
+    this._renderLength = Math.random() * this._text.length
+    this._startTime = timeNowSeconds();
   }
 
   _getRandomLineText() {
     const numLines = this._lines.length
     const index = Math.floor(Math.random() * numLines)
-    return this._lines[index]
+    return this._lines[index].split('')
   }
 
   _getRandomChar() {

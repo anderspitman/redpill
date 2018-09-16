@@ -2,20 +2,25 @@ import { Rainer } from 'make-it-rain';
 
 
 const usernameInput = document.getElementById('username')
-const passwordInput = document.getElementById('password')
 const submitInput = document.getElementById('submit')
 
 
-submitInput.addEventListener('click', () => {
-  const username = usernameInput.value
-  const password = passwordInput.value
+let rainer;
 
-  const rainer = new Rainer({
+submitInput.addEventListener('click', () => {
+  const username = usernameInput.value;
+  const root = document.getElementById('root');
+  const oldElem = root.firstChild;
+  root.removeChild(oldElem);
+  go(username);
+})
+
+function go(username) {
+  rainer = new Rainer({
     sourceType: 'github',
     githubUsername: username,
-    githubPassword: password,
     domElementId: 'root',
-    fileTypes: ['js', 'json', 'md', 'ts']
   })
+}
 
-})
+go(usernameInput.value);

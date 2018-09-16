@@ -1,3 +1,20 @@
+body {
+    margin: 0;
+    background-color: black;
+}
+
+#header {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 40px;
+}
+
 #root {
-    height: 800px;
+    /*height: 800px;*/
+    height: 98vh;
 }

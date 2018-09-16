@@ -1,5 +1,5 @@
 {
-  "name": "make-it-rain",
+  "name": "redpill",
   "version": "0.1.0",
   "description": "Matrix code rain in the browser",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anderspitman/make-it-rain.git"
+    "url": "git+https://github.com/anderspitman/redpill.git"
   },
   "keywords": [
     "Matrix",
@@ -17,10 +17,7 @@
   "author": "Anders Pitman",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anderspitman/make-it-rain/issues"
+    "url": "https://github.com/anderspitman/redpill/issues"
   },
-  "homepage": "https://github.com/anderspitman/make-it-rain#readme",
-  "dependencies": {
-    "base-64": "^0.1.0"
-  }
+  "homepage": "https://github.com/anderspitman/redpill#readme"
 }

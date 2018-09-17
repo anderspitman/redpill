@@ -1,3 +1,6 @@
+import base64 from 'base-64';
+
+
 class Fetcher {
   fetchLines() {
     throw "fetchLines must be overridden in subclass"
@@ -12,7 +15,20 @@ class GitHubFetcher extends Fetcher {
 
     const headers = new Headers()
 
+    console.log(options);
+    // if password is provided, use that in the API requests. This greatly
+    // increases the API limits.
+    if (options.githubPassword) {
+      const password = options.githubPassword;
+      console.log('add password');
+      const authHeader = 'Basic ' + base64.encode(username + ":" + password);
+      console.log(authHeader);
+      headers.append('Authorization', authHeader);
+    }
+
     const fetchOptions = { headers }
+
+    console.log(fetchOptions);
 
     options.fetchOptions = fetchOptions
 

@@ -4,7 +4,7 @@ import { defaultTheme, validateTheme } from './theme'
 const xmlns = "http://www.w3.org/2000/svg"
 
 export class Rainer {
-  constructor({ sourceType, githubUsername, domElementId, theme, excludeFileTypes}) {
+  constructor({ sourceType, githubUsername, githubPassword, domElementId, theme, excludeFileTypes}) {
     if (sourceType !== 'github') {
       throw "Invalid sourceType: " + sourceType
     }
@@ -18,6 +18,7 @@ export class Rainer {
     const fetcherOptions = {
       sourceType,
       githubUsername,
+      githubPassword,
       excludeFileTypes,
       numLines: 50,
     }

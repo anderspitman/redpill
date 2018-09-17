@@ -1,6 +1,6 @@
 {
   "name": "redpill-rain",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Matrix code rain in the browser",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/anderspitman/redpill/issues"
   },
-  "homepage": "https://github.com/anderspitman/redpill#readme"
+  "homepage": "https://github.com/anderspitman/redpill#readme",
+  "dependencies": {
+    "base-64": "^0.1.0"
+  }
 }

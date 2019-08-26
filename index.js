@@ -1,1 +1,1 @@
-export { Rainer } from './src/rainer'
+export { Rainer } from './src/rainer.js'

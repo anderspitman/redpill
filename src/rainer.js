@@ -1,5 +1,5 @@
-import { createFetcher } from './fetcher'
-import { defaultTheme, validateTheme } from './theme'
+import { createFetcher } from './fetcher/index.js'
+import { defaultTheme, validateTheme } from './theme.js'
 
 const xmlns = "http://www.w3.org/2000/svg"
 

@@ -1,6 +1,3 @@
-//import base64 from 'base-64';
-
-
 class Fetcher {
   fetchLines() {
     throw "fetchLines must be overridden in subclass"
@@ -21,7 +18,7 @@ class GitHubFetcher extends Fetcher {
     if (options.githubPassword) {
       const password = options.githubPassword;
       console.log('add password');
-      const authHeader = 'Basic ' + base64.encode(username + ":" + password);
+      const authHeader = 'Basic ' + btoa(username + ":" + password);
       console.log(authHeader);
       headers.append('Authorization', authHeader);
     }

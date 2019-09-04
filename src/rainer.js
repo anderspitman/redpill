@@ -4,7 +4,7 @@ import { defaultTheme, validateTheme } from './theme.js'
 const xmlns = "http://www.w3.org/2000/svg"
 
 export class Rainer {
-  constructor({ sourceType, githubUsername, githubPassword, domElementId, theme, excludeFileTypes}) {
+  constructor({ sourceType, githubUsername, githubPassword, domElement, domElementId, theme, excludeFileTypes}) {
     if (sourceType !== 'github') {
       throw "Invalid sourceType: " + sourceType
     }
@@ -25,7 +25,20 @@ export class Rainer {
 
 
     const fetcher = createFetcher(fetcherOptions)
-    const el = document.getElementById(domElementId)
+    let el;
+
+    if (domElement && domElementId) {
+      throw new Error("Can only specify domElement or domElementId, not both");
+    }
+
+    if (domElement) {
+      el = domElement;
+    }
+    
+    if (domElementId) {
+      el = document.getElementById(domElementId);
+    }
+
     const dim = el.getBoundingClientRect()
 
     fetcher.fetchLines().then((lines) => {

@@ -33,4 +33,4 @@ const rainer = new Rainer({
 
 For a more complete example, see `examples/github`. A live version is currently
 running at
-[https://anderspitman.net/apps/redpill](https://anderspitman.net/apps/redpill).
+[https://anderspitman.net/apps/redpill/](https://anderspitman.net/apps/redpill/).
